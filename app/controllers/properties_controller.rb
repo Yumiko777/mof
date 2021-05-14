@@ -11,30 +11,28 @@ class PropertiesController < ApplicationController
 
   def new
     @property = Property.new
-    2.times { @property.nearest_stations.build}
+    2.times { @property.nearest_stations.build }
   end
-
+  
   def edit
     @property.nearest_stations.build
   end
 
   def create
     @property = Property.new(property_params)
-      if @property.save
-        redirect_to properties_path, notice: "物件を登録しました！"
-      else
-        2.times { @property.nearest_stations.build}
-        render :new
-      end
+    if @property.save
+      redirect_to properties_path, notice: "物件を登録しました！"
+    else
+      render :new
+    end
   end
 
   def update
-      if @property.update(property_params)
-        redirect_to properties_path, notice: "物件を編集しました！"
-      else
-        @property.nearest_stations.build
-        render :edit
-      end
+    if @property.update(property_params)
+      redirect_to properties_path, notice: "物件を編集しました！"
+    else
+      render :edit
+    end
   end
 
   def destroy
